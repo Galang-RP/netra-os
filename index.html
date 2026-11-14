@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Netra OS</title>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#060B14',
+                            surface: '#0D1525',
+                            card: '#111C30',
+                            border: '#1E2D4A',
+                            cyan: '#06B6D4',
+                            emerald: '#10B981',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar & Cyber Grid Background */
+        body {
+            background-color: #060B14;
+            color: #E2E8F0;
+        }
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060B14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E2D4A;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06B6D4;
+        }
+        .glass-nav {
+            background: rgba(6, 11, 20, 0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
+
+    <!-- Toast Notification for Copy Action -->
+    <div id="copy-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="flex items-center gap-3 bg-slate-900/95 border border-emerald-500/50 text-emerald-300 px-4 py-3 rounded-xl shadow-2xl shadow-emerald-950/50 backdrop-blur-md">
+            <div class="bg-emerald-500/20 p-1.5 rounded-lg text-emerald-400">
+                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-white">Teks Disalin!</p>
+                <p id="toast-command-preview" class="text-xs font-mono text-emerald-400 truncate max-w-[220px]"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. STICKY NAVBAR -->
+    <header class="sticky top-0 z-40 glass-nav border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-18">
+                <!-- Brand Logo (Tanpa subteks Ubuntu 26.04) -->
+                <a href="#beranda" class="flex items-center gap-3 group focus:outline-none">
+                    <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-emerald-500 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all">
+                        <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+                            <i data-lucide="radar" class="w-5 h-5 text-cyan-400 group-hover:rotate-45 transition-transform duration-500"></i>
+                        </div>
+                    </div>
+                    <span class="text-lg font-extrabold tracking-tight text-white flex items-center gap-1.5">
+                        Netra <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">OS</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center gap-1">
+                    <a href="#beranda" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-colors">Beranda</a>
+                    <a href="#memulai" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-colors">Memulai</a>
+                    <a href="#perintah-dasar" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-colors">Perintah Dasar</a>
+                    <a href="#toolkit" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-colors">Toolkit Jaringan</a>
+                    <a href="#fitur-unggulan" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-colors">Fitur Unggulan</a>
+                    <a href="#troubleshooting" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-colors">Troubleshooting</a>
+                    <a href="#keamanan" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-colors">Keamanan</a>
+                    <a href="#tim-support" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-colors">Tim & Support</a>
+                </nav>
+
+                <!-- Quick Badge & Mobile Menu Toggle -->
+                <div class="flex items-center gap-3">
+                    <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        GNOME Edition
+                    </span>
+                    <button id="mobile-menu-btn" aria-label="Buka Menu Navigasi" class="lg:hidden p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors">
+                        <i id="menu-icon-open" data-lucide="menu" class="w-5 h-5"></i>
+                        <i id="menu-icon-close" data-lucide="x" class="w-5 h-5 hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-800/80 bg-slate-950/95 backdrop-blur-xl px-4 pt-3 pb-5 space-y-1">
+            <a href="#beranda" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-900">Beranda</a>
+            <a href="#memulai" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-900">1. Memulai Netra OS</a>
+            <a href="#perintah-dasar" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-900">2. Perintah Dasar</a>
+            <a href="#toolkit" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-900">3. Toolkit Jaringan (1-13)</a>
+            <a href="#fitur-unggulan" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-900">4. Fitur Unggulan</a>
+            <a href="#troubleshooting" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-900">5. Alur Troubleshooting</a>
+            <a href="#keamanan" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-900">6. Keamanan & Bantuan</a>
+            <a href="#tim-support" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-900">7. Orang di Balik Layar & Support</a>
+        </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section id="beranda" class="relative cyber-grid pt-16 pb-20 md:pt-24 md:pb-28 border-b border-slate-800/60 overflow-hidden">
+        <!-- Ambient Glow -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[320px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+        <div class="absolute bottom-0 right-10 w-[400px] h-[250px] bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Column: Title & CTA -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 text-xs font-mono text-cyan-300 shadow-sm">
+                        <i data-lucide="terminal" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
+                        <span>Netra OS • Network Edition • GNOME Desktop • <span class="text-emerald-400">User Guide & Reference Manual</span></span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
+                        Welcome to <br class="hidden sm:block">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">
+                            Netra OS
+                        </span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+                        Distro Linux berbasis <strong class="text-white font-semibold">Ubuntu 26.04 LTS</strong> dengan desktop <strong class="text-white font-semibold">GNOME</strong>, yang dirancang khusus untuk pembelajaran, analisis lalu lintas data, dan administrasi jaringan komputer. Menyatukan berbagai toolkit jaringan dalam satu sistem agar praktis digunakan untuk pengujian dan troubleshooting.
+                    </p>
+
+                    <!-- Welcome Callout -->
+                    <div class="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800/90 backdrop-blur-sm">
+                        <div class="flex items-start gap-3.5">
+                            <div class="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 shrink-0 mt-0.5">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            </div>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                <strong class="text-cyan-300 font-semibold">Selamat datang di Netra OS!</strong> Mulailah dari pemeriksaan koneksi sederhana, pelajari jalur dan layanan jaringan, lalu lanjutkan ke analisis paket serta pengujian performa. Gunakan seluruh alat secara bertanggung jawab dan hanya pada jaringan atau perangkat yang diizinkan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+                        <a href="#memulai" class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/25 transition-all">
+                            <i data-lucide="rocket" class="w-4 h-4"></i>
+                            Mulai Eksplorasi
+                        </a>
+                        <a href="#toolkit" class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm border border-slate-700 hover:border-cyan-500/50 transition-all">
+                            <i data-lucide="wrench" class="w-4 h-4 text-cyan-400"></i>
+                            Lihat Toolkit (13)
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Terminal Preview & Table of Contents -->
+                <div class="lg:col-span-5">
+                    <div class="rounded-2xl bg-[#0A101D] border border-slate-800 shadow-2xl overflow-hidden">
+                        <!-- Terminal Titlebar -->
+                        <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-800">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                            </div>
+                            <span class="text-xs font-mono text-slate-400">netra@ubuntu-26.04:~</span>
+                            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">bash</span>
+                        </div>
+                        <!-- Terminal Content -->
+                        <div class="p-5 font-mono text-xs sm:text-sm space-y-3">
+                            <div class="text-slate-400">
+                                <span class="text-emerald-400">netra@workstation</span>:<span class="text-cyan-400">~</span>$ cat /etc/netra-toc.md
+                            </div>
+                            <div class="text-cyan-300 font-semibold border-b border-slate-800 pb-2">
+                                # DAFTAR ISI PANDUAN NETRA OS
+                            </div>
+                            <ul class="space-y-2 text-slate-300">
+                                <li>
+                                    <a href="#memulai" class="flex items-center justify-between hover:text-cyan-400 transition-colors group">
+                                        <span><span class="text-emerald-400 mr-2">[01]</span>Memulai Netra OS</span>
+                                        <span class="text-slate-600 group-hover:text-cyan-400 text-xs">→</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#perintah-dasar" class="flex items-center justify-between hover:text-cyan-400 transition-colors group">
+                                        <span><span class="text-emerald-400 mr-2">[02]</span>Perintah Dasar Sebelum Analisis</span>
+                                        <span class="text-slate-600 group-hover:text-cyan-400 text-xs">→</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#toolkit" class="flex items-center justify-between hover:text-cyan-400 transition-colors group">
+                                        <span><span class="text-emerald-400 mr-2">[03]</span>Toolkit Jaringan (1-13)</span>
+                                        <span class="text-slate-600 group-hover:text-cyan-400 text-xs">→</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#fitur-unggulan" class="flex items-center justify-between hover:text-cyan-400 transition-colors group">
+                                        <span><span class="text-emerald-400 mr-2">[04]</span>Fitur Unggulan Netra OS</span>
+                                        <span class="text-slate-600 group-hover:text-cyan-400 text-xs">→</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#troubleshooting" class="flex items-center justify-between hover:text-cyan-400 transition-colors group">
+                                        <span><span class="text-emerald-400 mr-2">[05]</span>Alur Troubleshooting Sederhana</span>
+                                        <span class="text-slate-600 group-hover:text-cyan-400 text-xs">→</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#keamanan" class="flex items-center justify-between hover:text-cyan-400 transition-colors group">
+                                        <span><span class="text-emerald-400 mr-2">[06]</span>Catatan Keamanan & Bantuan</span>
+                                        <span class="text-slate-600 group-hover:text-cyan-400 text-xs">→</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tim-support" class="flex items-center justify-between hover:text-cyan-400 transition-colors group">
+                                        <span><span class="text-emerald-400 mr-2">[07]</span>Orang di Balik Layar & Support</span>
+                                        <span class="text-slate-600 group-hover:text-cyan-400 text-xs">→</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="pt-2 text-slate-400 flex items-center gap-2">
+                                <span class="text-emerald-400">netra@workstation</span>:<span class="text-cyan-400">~</span>$ <span class="inline-block w-2 h-4 bg-cyan-400 animate-pulse"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. BAGIAN 1: MEMULAI NETRA OS -->
+    <section id="memulai" class="py-20 border-b border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mb-12">
+                <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-400 mb-2">
+                    <span class="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">Bagian 01</span>
+                    <span>Quick Start</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Memulai Netra OS</h2>
+                <p class="text-slate-400 mt-3 text-base">Ikuti 5 langkah awal untuk mengenal lingkungan desktop GNOME, membuka terminal, dan memverifikasi konektivitas jaringan dasar.</p>
+            </div>
+
+            <!-- 5 Numbered Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Step 1 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-9 h-9 rounded-xl bg-cyan-500/15 text-cyan-400 font-mono font-bold flex items-center justify-center border border-cyan-500/30">1</span>
+                            <i data-lucide="layout-grid" class="w-5 h-5 text-slate-500"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Masuk ke Desktop GNOME</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Gunakan menu aplikasi (<span class="text-cyan-300 font-medium">Activities / Show Apps</span>) untuk mencari dan membuka aplikasi seperti <strong class="text-white">Wireshark</strong>, <strong class="text-white">Remmina</strong>, atau <strong class="text-white">Brave Browser</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-9 h-9 rounded-xl bg-cyan-500/15 text-cyan-400 font-mono font-bold flex items-center justify-center border border-cyan-500/30">2</span>
+                            <i data-lucide="terminal-square" class="w-5 h-5 text-slate-500"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Buka Terminal</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                            Tekan pintasan keyboard di bawah ini atau cari aplikasi <strong class="text-white">Terminal</strong> langsung dari menu aplikasi GNOME.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-1.5 pt-2">
+                        <kbd class="px-2.5 py-1 text-xs font-mono font-semibold text-cyan-300 bg-slate-950 border border-slate-700 rounded-lg shadow-inner">Ctrl</kbd>
+                        <span class="text-slate-500">+</span>
+                        <kbd class="px-2.5 py-1 text-xs font-mono font-semibold text-cyan-300 bg-slate-950 border border-slate-700 rounded-lg shadow-inner">Alt</kbd>
+                        <span class="text-slate-500">+</span>
+                        <kbd class="px-2.5 py-1 text-xs font-mono font-semibold text-cyan-300 bg-slate-950 border border-slate-700 rounded-lg shadow-inner">T</kbd>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all md:col-span-2 lg:col-span-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-400 font-mono font-bold flex items-center justify-center border border-emerald-500/30">3</span>
+                            <i data-lucide="activity" class="w-5 h-5 text-slate-500"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Periksa Koneksi & Alamat IP</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-3">
+                            Jalankan perintah berikut di Terminal untuk mengecek antarmuka, rute, dan koneksi internet:
+                        </p>
+                    </div>
+                    <div class="bg-slate-950 rounded-xl border border-slate-800 p-3 font-mono text-xs space-y-2">
+                        <div class="flex items-center justify-between">
+                            <code class="text-emerald-400">ip addr</code>
+                            <button onclick="copyText('ip addr')" class="text-slate-400 hover:text-cyan-400 p-1 rounded" title="Salin perintah">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-slate-900 pt-1.5">
+                            <code class="text-emerald-400">ip route</code>
+                            <button onclick="copyText('ip route')" class="text-slate-400 hover:text-cyan-400 p-1 rounded" title="Salin perintah">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-slate-900 pt-1.5">
+                            <code class="text-emerald-400">ping -c 4 1.1.1.1</code>
+                            <button onclick="copyText('ping -c 4 1.1.1.1')" class="text-slate-400 hover:text-cyan-400 p-1 rounded" title="Salin perintah">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-9 h-9 rounded-xl bg-cyan-500/15 text-cyan-400 font-mono font-bold flex items-center justify-center border border-cyan-500/30">4</span>
+                        <i data-lucide="layers" class="w-5 h-5 text-slate-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Jalankan Alat Sesuai Kebutuhan</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Alat berbasis grafis (<strong class="text-cyan-300">GUI</strong>) dapat dibuka langsung dari menu aplikasi; sedangkan alat berbasis baris perintah (<strong class="text-emerald-300">CLI</strong>) dijalankan melalui Terminal.
+                    </p>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-400 font-mono font-bold flex items-center justify-center border border-amber-500/30">5</span>
+                        <i data-lucide="shield-alert" class="w-5 h-5 text-slate-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Gunakan Hak Administrator Seperlunya</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Tambahkan awalan <code class="px-1.5 py-0.5 rounded bg-slate-950 text-amber-300 font-mono text-xs border border-slate-800">sudo</code> hanya untuk perintah yang memang memerlukannya (seperti packet capture). Selalu baca perintah sebelum menjalankannya.
+                    </p>
+                </div>
+
+                <!-- Important Note Box -->
+                <div class="p-6 rounded-2xl bg-gradient-to-br from-cyan-950/40 to-slate-900/80 border border-cyan-500/30 flex flex-col justify-center">
+                    <div class="flex items-center gap-2.5 text-cyan-400 font-semibold text-sm mb-2">
+                        <i data-lucide="info" class="w-5 h-5 shrink-0"></i>
+                        <span>Catatan Penting</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Panduan ini mengasumsikan paket telah tersedia pada instalasi Netra OS. Nama paket atau perintah dapat berbeda menurut versi dan konfigurasi. Sebagian perintah memerlukan koneksi jaringan, hak akses tertentu, atau izin capture.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. BAGIAN 2: PERINTAH DASAR SEBELUM ANALISIS -->
+    <section id="perintah-dasar" class="py-20 bg-slate-950/40 border-b border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-400 mb-2">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">Bagian 02</span>
+                        <span>Basic CLI Reference</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Perintah Dasar Sebelum Analisis</h2>
+                    <p class="text-slate-400 mt-2 text-base">Perintah fundamental Linux untuk memeriksa antarmuka jaringan, routing, konektivitas dasar, dan dokumentasi manual.</p>
+                </div>
+            </div>
+
+            <!-- Responsive Table Container -->
+            <div class="rounded-2xl bg-slate-900/70 border border-slate-800 overflow-hidden shadow-xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-900 border-b border-slate-800 text-xs font-mono uppercase tracking-wider text-slate-400">
+                                <th class="py-4 px-6 w-1/3">Perintah Terminal</th>
+                                <th class="py-4 px-6">Kegunaan & Fungsi</th>
+                                <th class="py-4 px-6 text-right w-28">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="basic-commands-tbody" class="divide-y divide-slate-800/70 text-sm">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. BAGIAN 3: TOOLKIT JARINGAN (1-13) -->
+    <section id="toolkit" class="py-20 border-b border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-400 mb-2">
+                        <span class="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">Bagian 03</span>
+                        <span>Complete Arsenal (1–13)</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Toolkit Jaringan Netra OS</h2>
+                    <p class="text-slate-400 mt-2 text-base max-w-2xl">
+                        Koleksi 13 utilitas GUI & CLI terintegrasi untuk analisis paket, pemindaian jaringan, pengujian throughput, remote access, hingga VPN.
+                    </p>
+                </div>
+
+                <!-- Search & Category Filter Controls -->
+                <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                    <div class="relative flex-1 sm:w-64">
+                        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                        <input 
+                            type="text" 
+                            id="toolkit-search" 
+                            placeholder="Cari alat atau perintah..." 
+                            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Pills -->
+            <div id="category-filters" class="flex flex-wrap items-center gap-2 mb-8">
+                <button data-category="all" class="filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-slate-950 transition-all">
+                    Semua Toolkit (13)
+                </button>
+                <button data-category="packet" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 hover:border-cyan-500/40 transition-all">
+                    Packet Analysis
+                </button>
+                <button data-category="recon" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 hover:border-cyan-500/40 transition-all">
+                    Scanning & Routing
+                </button>
+                <button data-category="dns-net" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 hover:border-cyan-500/40 transition-all">
+                    DNS, Subnet & Performa
+                </button>
+                <button data-category="remote" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 hover:border-cyan-500/40 transition-all">
+                    Remote, VPN & Web
+                </button>
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="toolkit-empty" class="hidden text-center py-16 px-4 rounded-2xl bg-slate-900/40 border border-slate-800">
+                <i data-lucide="search-x" class="w-10 h-10 text-slate-500 mx-auto mb-3"></i>
+                <h3 class="text-lg font-bold text-white">Toolkit tidak ditemukan</h3>
+                <p class="text-sm text-slate-400 mt-1">Coba gunakan kata kunci lain seperti <span class="font-mono text-cyan-400">nmap</span>, <span class="font-mono text-cyan-400">wireshark</span>, atau <span class="font-mono text-cyan-400">tcpdump</span>.</p>
+            </div>
+
+            <!-- Toolkit Cards Grid -->
+            <div id="toolkit-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. BAGIAN 4: FITUR UNGGULAN NETRA OS -->
+    <section id="fitur-unggulan" class="py-20 bg-slate-950/40 border-b border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-400 mb-2">
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">Bagian 04</span>
+                    <span>Signature Features</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Fitur Unggulan Netra OS</h2>
+                <p class="text-slate-400 mt-3 text-base">Dirancang untuk memberikan kenyamanan belajar offline, personalisasi visual, dan efisiensi alur kerja network engineer.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1: Netra Guide -->
+                <div class="group relative p-7 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 overflow-hidden">
+                    <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="book-open-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Netra Guide</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Panduan offline terintegrasi untuk mempelajari Netra OS, perintah dasar jaringan, subnetting, dan troubleshooting secara praktis meskipun tanpa koneksi internet.
+                    </p>
+                </div>
+
+                <!-- Feature 2: Netra Fine Look -->
+                <div class="group relative p-7 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-emerald-500/50 transition-all duration-300 overflow-hidden">
+                    <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="palette" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Netra Fine Look</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Fitur personalisasi desktop GNOME untuk mengubah tema, paket ikon, wallpaper, serta tampilan jendela secara cepat sesuai kenyamanan dan preferensi visual pengguna.
+                    </p>
+                </div>
+
+                <!-- Feature 3: Netra Workspace -->
+                <div class="group relative p-7 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-purple-500/50 transition-all duration-300 overflow-hidden">
+                    <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-purple-500 to-cyan-500"></div>
+                    <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Netra Workspace</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Lingkungan kerja terorganisir untuk mempermudah akses cepat ke berbagai aplikasi jaringan berdasarkan kategori tugas (misalnya: analisis paket, pemindaian, maupun remote access).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. BAGIAN 5: ALUR TROUBLESHOOTING SEDERHANA -->
+    <section id="troubleshooting" class="py-20 border-b border-slate-800/60">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-400 mb-2">
+                    <span class="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">Bagian 05</span>
+                    <span>Diagnostic Methodology</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Alur Troubleshooting Sederhana</h2>
+                <p class="text-slate-400 mt-3 text-base">Gunakan urutan sistematis 7 langkah berikut dari lapisan lokal hingga analisis paket saat mengalami gangguan koneksi jaringan.</p>
+            </div>
+
+            <!-- Vertical Stepper -->
+            <div id="troubleshooting-stepper" class="relative space-y-6 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-cyan-500 before:via-emerald-500 before:to-slate-800">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. BAGIAN 6: CATATAN KEAMANAN DAN BANTUAN -->
+    <section id="keamanan" class="py-20 bg-slate-950/60 border-b border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10">
+                <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-amber-400 mb-2">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">Bagian 06</span>
+                    <span>Ethics, Security & Help</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Catatan Keamanan & Bantuan</h2>
+            </div>
+
+            <!-- Ethics & Legality Warning Banner -->
+            <div class="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-amber-950/40 via-rose-950/20 to-slate-900 border border-amber-500/40 mb-8 shadow-lg">
+                <div class="flex flex-col sm:flex-row items-start gap-5">
+                    <div class="p-3.5 rounded-2xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shrink-0">
+                        <i data-lucide="alert-triangle" class="w-7 h-7"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-xl font-bold text-amber-300">Etika & Legalitas Penggunaan</h3>
+                        <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                            Lakukan pemindaian jaringan (<em class="text-amber-200">scanning</em>), penangkapan paket (<em class="text-amber-200">packet capture</em>), dan pengujian performa (<em class="text-amber-200">throughput testing</em>) <strong class="text-white underline decoration-amber-400/60">hanya pada jaringan atau perangkat milik sendiri maupun yang telah memberikan izin resmi</strong>. Jangan pernah menyimpan, menyadap, atau membagikan data sensitif dan rahasia milik pengguna lain.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help & APT Tips Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Tip 1: Manual & Help -->
+                <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="p-2 rounded-xl bg-cyan-500/10 text-cyan-400">
+                                <i data-lucide="help-circle" class="w-5 h-5"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-white">Dokumentasi & Parameter Perintah</h4>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                            Gunakan halaman manual bawaan Linux atau flag bantuan singkat untuk mempelajari opsi dan parameter tiap perintah CLI secara mendalam.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
+                        <div class="flex items-center justify-between bg-slate-950 px-3.5 py-2.5 rounded-xl border border-slate-800">
+                            <code class="text-cyan-400">man nama_perintah</code>
+                            <button onclick="copyText('man nama_perintah')" class="text-slate-400 hover:text-cyan-400" title="Salin">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between bg-slate-950 px-3.5 py-2.5 rounded-xl border border-slate-800">
+                            <code class="text-cyan-400">nama_perintah --help</code>
+                            <button onclick="copyText('nama_perintah --help')" class="text-slate-400 hover:text-cyan-400" title="Salin">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tip 2: APT Package Management -->
+                <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">
+                                <i data-lucide="package-plus" class="w-5 h-5"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-white">Instalasi Paket via APT (Ubuntu 26.04 LTS)</h4>
+                        </div>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                            Jika suatu alat tidak ditemukan pada sistem, pastikan paketnya sudah terpasang menggunakan manajer paket <code class="text-emerald-400 font-mono">apt</code> karena Netra OS dirancang berbasis <strong class="text-white">Ubuntu 26.04 LTS</strong>.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-950 px-3.5 py-2.5 rounded-xl border border-slate-800 font-mono text-xs">
+                        <code class="text-emerald-400">sudo apt update && sudo apt install nama_paket</code>
+                        <button onclick="copyText('sudo apt update && sudo apt install nama_paket')" class="text-slate-400 hover:text-emerald-400 ml-2 shrink-0" title="Salin">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. BAGIAN 7: ORANG DI BALIK LAYAR & SUPPORT -->
+    <section id="tim-support" class="py-20 bg-[#050912]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+            
+            <!-- Orang di Balik Layar -->
+            <div>
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-400 mb-2">
+                        <span class="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">Behind The Scenes</span>
+                        <span>Core Contributors</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Orang di Balik Layar</h2>
+                    <p class="text-slate-400 mt-3 text-base">Tim pengembang, perancang sistem, dan penyusun dokumentasi yang membangun Netra OS.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Team Card 1 -->
+                    <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/40 transition-all flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+                            <i data-lucide="cpu" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">Tim Arsitek & Remastering OS</h3>
+                            <p class="text-xs font-mono text-cyan-400 mt-0.5">System & Kernel Integration</p>
+                            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Membangun base Ubuntu 26.04 LTS, integrasi paket jaringan, dan optimasi desktop GNOME.</p>
+                        </div>
+                    </div>
+
+                    <!-- Team Card 2 -->
+                    <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-emerald-500/40 transition-all flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                            <i data-lucide="palette" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">Tim UI/UX & Netra Fine Look</h3>
+                            <p class="text-xs font-mono text-emerald-400 mt-0.5">Desktop Experience & Workspace</p>
+                            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Merancang tampilan visual Netra Fine Look dan tata letak produktivitas Netra Workspace.</p>
+                        </div>
+                    </div>
+
+                    <!-- Team Card 3 -->
+                    <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-purple-500/40 transition-all flex items-center gap-4 sm:col-span-2 lg:col-span-1">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0">
+                            <i data-lucide="file-text" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">Tim Dokumentasi & Netra Guide</h3>
+                            <p class="text-xs font-mono text-purple-400 mt-0.5">Technical Writing & QA</p>
+                            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Menyusun referensi perintah, alur troubleshooting, serta pengujian 13 toolkit jaringan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support (Bug Report & Saran) -->
+            <div class="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900/90 to-cyan-950/30 border border-slate-800 shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-3">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400">
+                            <i data-lucide="life-buoy" class="w-3.5 h-3.5"></i>
+                            <span>Support & Community Feedback</span>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Menemukan Bug atau Punya Saran Fitur?</h3>
+                        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                            Masukan Anda sangat berarti untuk pengembangan <strong class="text-white">Netra OS</strong> ke depannya. Kirimkan laporan kendala teknis (<em class="text-cyan-300">bug report</em>), permintaan penambahan paket jaringan, atau kritik & saran melalui kontak email resmi kami.
+                        </p>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-3">
+                        <!-- Email Support / Bug -->
+                        <div class="p-4 rounded-2xl bg-slate-950/90 border border-slate-800 flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 shrink-0">
+                                    <i data-lucide="bug" class="w-5 h-5"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-xs text-slate-400">Laporan Bug & Bantuan Teknis</p>
+                                    <a href="mailto:support@netraos.org" class="text-sm font-mono font-semibold text-cyan-400 hover:underline truncate block">support@netraos.org</a>
+                                </div>
+                            </div>
+                            <button onclick="copyText('support@netraos.org')" class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-cyan-400 border border-slate-800 shrink-0" title="Salin email">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Email Saran / Feedback -->
+                        <div class="p-4 rounded-2xl bg-slate-950/90 border border-slate-800 flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 shrink-0">
+                                    <i data-lucide="mail-plus" class="w-5 h-5"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-xs text-slate-400">Saran & Pengembangan Fitur</p>
+                                    <a href="mailto:feedback@netraos.org" class="text-sm font-mono font-semibold text-emerald-400 hover:underline truncate block">feedback@netraos.org</a>
+                                </div>
+                            </div>
+                            <button onclick="copyText('feedback@netraos.org')" class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-emerald-400 border border-slate-800 shrink-0" title="Salin email">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER (Copyright & Contact) -->
+    <footer class="border-t border-slate-800/80 bg-[#03060C] py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <!-- Brand & Copyright -->
+                <div class="flex items-start sm:items-center gap-3.5">
+                    <div class="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5 sm:mt-0">
+                        <i data-lucide="radar" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-white">Netra OS — Network Edition</p>
+                        <p class="text-xs text-slate-400 mt-0.5">&copy; 2026 Netra OS Project. All rights reserved. Built on Ubuntu 26.04 LTS & GNOME Desktop.</p>
+                    </div>
+                </div>
+
+                <!-- Contact & Back to Top -->
+                <div class="flex flex-wrap items-center gap-5 text-xs text-slate-400">
+                    <a href="mailto:support@netraos.org" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-mono">
+                        <i data-lucide="mail" class="w-3.5 h-3.5 text-cyan-400"></i>
+                        support@netraos.org
+                    </a>
+                    <span class="text-slate-700 hidden sm:inline">|</span>
+                    <a href="#beranda" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-medium text-slate-300">
+                        <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+                        Kembali ke Atas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT DATA & INTERACTIVITY -->
+    <script>
+        // 1. Data Perintah Dasar (Bagian 2)
+        const basicCommands = [
+            { cmd: 'ip addr', desc: 'Melihat antarmuka jaringan beserta alamat IP (IPv4/IPv6) yang aktif.' },
+            { cmd: 'ip route', desc: 'Melihat tabel rute jaringan dan alamat default gateway.' },
+            { cmd: 'ping -c 4 1.1.1.1', desc: 'Menguji konektivitas ke alamat IP publik tujuan sebanyak 4 kali paket ICMP.' },
+            { cmd: 'ping -c 4 example.com', desc: 'Menguji koneksi sekaligus membantu memeriksa resolusi nama domain (DNS).' },
+            { cmd: 'hostname', desc: 'Menampilkan nama host (komputer) pada sistem.' },
+            { cmd: 'ip link', desc: 'Melihat daftar dan status fisik/link antarmuka jaringan.' },
+            { cmd: 'man nama_perintah', desc: 'Membuka halaman manual lengkap, misalnya: man traceroute.' },
+            { cmd: 'nama_perintah --help', desc: 'Menampilkan ringkasan bantuan parameter dan opsi perintah jika didukung.' }
+        ];
+
+        // 2. Data 13 Toolkit Jaringan (Bagian 3)
+        const toolkitData = [
+            {
+                id: 1,
+                name: 'Wireshark',
+                category: 'packet',
+                badge: 'GUI • Packet Analyzer',
+                icon: 'activity',
+                desc: 'Menganalisis paket jaringan melalui antarmuka grafis (GUI), melihat detail protokol, alamat sumber/tujuan, dan isi komunikasi.',
+                steps: [
+                    'Buka Wireshark dari menu aplikasi atau jalankan wireshark.',
+                    'Pilih antarmuka jaringan yang aktif (misal: eth0, enp0s3, atau wlan0).',
+                    'Klik tombol Start untuk mulai menangkap paket.',
+                    'Masukkan display filter pada kolom filter, lalu tekan Enter.',
+                    'Klik salah satu paket untuk memeriksa detail header protokol dan byte data.'
+                ],
+                commands: [
+                    { label: 'Jalankan via Terminal', code: 'wireshark' },
+                    { label: 'Display Filter Dasar', code: 'dns | http | tcp | udp | icmp' },
+                    { label: 'Filter IP & Port Spesifik', code: 'ip.addr == 192.168.1.10 || tcp.port == 443' }
+                ],
+                note: 'Display filter hanya menyaring tampilan paket yang sudah ditangkap. Lalu lintas HTTPS mengenkripsi isi data aplikasinya.'
+            },
+            {
+                id: 2,
+                name: 'Nmap',
+                category: 'recon',
+                badge: 'CLI • Network Scanner',
+                icon: 'radar',
+                desc: 'Menemukan host yang aktif merespons, memeriksa port terbuka, dan mengenali versi layanan pada perangkat yang diizinkan.',
+                commands: [
+                    { label: 'Pemindaian standar target', code: 'nmap 192.168.1.1' },
+                    { label: 'Host discovery tanpa port scan (-sn)', code: 'nmap -sn 192.168.1.0/24' },
+                    { label: 'Scan port spesifik (-p)', code: 'nmap -p 22,53,80,443 192.168.1.1' },
+                    { label: 'Deteksi versi layanan (-sV)', code: 'nmap -sV 192.168.1.1' }
+                ],
+                note: 'Opsi: -sn (host discovery), -p (pilih port), -sV (deteksi versi layanan). Dapatkan izin resmi sebelum memindai jaringan pihak lain.'
+            },
+            {
+                id: 3,
+                name: 'Traceroute',
+                category: 'recon',
+                badge: 'CLI • Path Tracing',
+                icon: 'git-commit-horizontal',
+                desc: 'Menampilkan rute hop atau router/perangkat perantara yang dilalui paket data menuju alamat tujuan.',
+                commands: [
+                    { label: 'Lacak jalur ke domain', code: 'traceroute example.com' },
+                    { label: 'Lacak jalur ke IP publik', code: 'traceroute 1.1.1.1' }
+                ]
+            },
+            {
+                id: 4,
+                name: 'MTR-tiny',
+                category: 'recon',
+                badge: 'CLI • Diagnostic',
+                icon: 'bar-chart-2',
+                desc: 'Menggabungkan fungsi traceroute dan ping secara real-time untuk memantau latensi serta perkiraan packet loss pada tiap hop.',
+                commands: [
+                    { label: 'Mode interaktif real-time', code: 'mtr example.com' },
+                    { label: 'Mode laporan lebar 10 siklus', code: 'mtr -rw -c 10 example.com' }
+                ],
+                note: 'Opsi: -r (report mode), -w (wide format), -c 10 (10 siklus ping). Tekan tombol "q" untuk keluar dari mode interaktif.'
+            },
+            {
+                id: 5,
+                name: 'Dnsutils (dig & nslookup)',
+                category: 'dns-net',
+                badge: 'CLI • DNS Query',
+                icon: 'globe',
+                desc: 'Memeriksa resolusi nama domain (DNS), tipe record domain (A, MX, dll.), serta menguji server DNS tertentu.',
+                commands: [
+                    { label: 'Query DNS standar dengan dig', code: 'dig example.com' },
+                    { label: 'Cek A Record & MX Record', code: 'dig example.com A && dig example.com MX' },
+                    { label: 'Query via DNS Cloudflare (1.1.1.1)', code: 'dig @1.1.1.1 example.com' },
+                    { label: 'Query dengan nslookup (default & 8.8.8.8)', code: 'nslookup example.com && nslookup example.com 8.8.8.8' }
+                ]
+            },
+            {
+                id: 6,
+                name: 'Net-tools (ifconfig & netstat)',
+                category: 'dns-net',
+                badge: 'CLI • Interface & Socket',
+                icon: 'network',
+                desc: 'Utilitas jaringan klasik untuk melihat konfigurasi antarmuka dan soket koneksi aktif, dilengkapi alternatif modern Linux (ip & ss).',
+                commands: [
+                    { label: 'Utilitas Klasik (net-tools)', code: 'ifconfig\nnetstat -tuln\nnetstat -rn' },
+                    { label: 'Alternatif Modern (iproute2)', code: 'ip addr\nss -tuln\nip route' }
+                ]
+            },
+            {
+                id: 7,
+                name: 'Iperf3',
+                category: 'dns-net',
+                badge: 'CLI • Bandwidth Test',
+                icon: 'gauge',
+                desc: 'Mengukur kapasitas throughput dan bandwidth jaringan maksimal antara dua perangkat (mode Server & Client).',
+                commands: [
+                    { label: '1. Jalankan pada perangkat Server', code: 'iperf3 -s' },
+                    { label: '2. Jalankan pada perangkat Client', code: 'iperf3 -c 192.168.1.20' },
+                    { label: '3. Uji throughput arah sebaliknya (-R)', code: 'iperf3 -c 192.168.1.20 -R' }
+                ]
+            },
+            {
+                id: 8,
+                name: 'Remmina',
+                category: 'remote',
+                badge: 'GUI • Remote Desktop',
+                icon: 'monitor',
+                desc: 'Klien remote desktop dan remote access berbasis GUI yang mendukung protokol RDP, VNC, maupun SSH.',
+                steps: [
+                    'Buka aplikasi Remmina dari menu aplikasi GNOME.',
+                    'Klik ikon Buat Koneksi Baru (+).',
+                    'Pilih protokol yang diinginkan (RDP / VNC / SSH).',
+                    'Masukkan alamat IP tujuan, port, dan kredensial login, lalu klik Hubungkan.'
+                ],
+                commands: [
+                    { label: 'Buka Remmina via Terminal', code: 'remmina' }
+                ]
+            },
+            {
+                id: 9,
+                name: 'PuTTY',
+                category: 'remote',
+                badge: 'GUI/CLI • SSH & Serial',
+                icon: 'terminal',
+                desc: 'Klien terminal populer untuk membangun koneksi remote SSH maupun komunikasi konsol Serial ke perangkat jaringan.',
+                steps: [
+                    'Buka aplikasi PuTTY.',
+                    'Pilih tipe koneksi SSH atau Serial.',
+                    'Isi Host Name (IP tujuan) dan Port (default SSH: 22).',
+                    'Klik tombol Open untuk memulai sesi remote.'
+                ],
+                commands: [
+                    { label: 'Buka PuTTY via Terminal', code: 'putty' }
+                ]
+            },
+            {
+                id: 10,
+                name: 'Ipcalc',
+                category: 'dns-net',
+                badge: 'CLI • Subnet Calculator',
+                icon: 'calculator',
+                desc: 'Menghitung informasi subnetting secara instan: network address, broadcast address, rentang host valid, netmask, dan notasi CIDR.',
+                commands: [
+                    { label: 'Hitung subnet kelas C (/24)', code: 'ipcalc 192.168.1.10/24' },
+                    { label: 'Hitung subnet kelas B (/16)', code: 'ipcalc 10.10.0.0/16' }
+                ]
+            },
+            {
+                id: 11,
+                name: 'Tcpdump',
+                category: 'packet',
+                badge: 'CLI • Packet Sniffer',
+                icon: 'file-code-2',
+                desc: 'Menangkap, memfilter, menyimpan, dan membaca paket lalu lintas jaringan secara langsung melalui Terminal (CLI).',
+                commands: [
+                    { label: 'Lihat daftar antarmuka tersedia', code: 'sudo tcpdump -D' },
+                    { label: 'Tangkap 20 paket pada semua interface', code: 'sudo tcpdump -i any -c 20' },
+                    { label: 'Filter trafik DNS (port 53)', code: 'sudo tcpdump -i any port 53' },
+                    { label: 'Filter trafik dari/ke host tertentu', code: 'sudo tcpdump -i any host 192.168.1.10' },
+                    { label: 'Simpan hasil capture ke file .pcap', code: 'sudo tcpdump -i any -w capture.pcap' },
+                    { label: 'Baca kembali file capture.pcap', code: 'sudo tcpdump -r capture.pcap' }
+                ]
+            },
+            {
+                id: 12,
+                name: 'OpenVPN',
+                category: 'remote',
+                badge: 'CLI • VPN Tunnel',
+                icon: 'shield-check',
+                desc: 'Membuat dan mengelola koneksi Virtual Private Network (VPN) terenkripsi berdasarkan file konfigurasi profil .ovpn.',
+                commands: [
+                    { label: 'Periksa versi OpenVPN terpasang', code: 'openvpn --version' },
+                    { label: 'Hubungkan ke VPN dengan file .ovpn', code: 'sudo openvpn --config client.ovpn' }
+                ]
+            },
+            {
+                id: 13,
+                name: 'Brave Browser',
+                category: 'remote',
+                badge: 'GUI • Web & Admin Panel',
+                icon: 'compass',
+                desc: 'Peramban web cepat dengan perlindungan privasi untuk mengakses dokumentasi jaringan, dashboard router, dan panel admin server.',
+                commands: [
+                    { label: 'Contoh akses dashboard router lokal', code: 'https://192.168.1.1' }
+                ]
+            }
+        ];
+
+        // 3. Data Alur Troubleshooting 7 Langkah (Bagian 5)
+        const troubleshootingSteps = [
+            {
+                step: 1,
+                title: 'Periksa Antarmuka & Alamat IP',
+                desc: 'Pastikan kartu jaringan aktif (UP) dan telah memperoleh alamat IP yang valid.',
+                commands: ['ip addr', 'ip link']
+            },
+            {
+                step: 2,
+                title: 'Periksa Default Gateway',
+                desc: 'Cek tabel routing dan uji koneksi ping ke alamat router/gateway lokal.',
+                commands: ['ip route', 'ping -c 4 ALAMAT_GATEWAY']
+            },
+            {
+                step: 3,
+                title: 'Uji Koneksi IP Publik',
+                desc: 'Pastikan paket dapat keluar menuju internet tanpa bergantung pada DNS.',
+                commands: ['ping -c 4 1.1.1.1']
+            },
+            {
+                step: 4,
+                title: 'Uji Resolusi Nama DNS',
+                desc: 'Verifikasi apakah nama domain dapat diterjemahkan menjadi alamat IP oleh DNS server.',
+                commands: ['dig example.com', 'nslookup example.com']
+            },
+            {
+                step: 5,
+                title: 'Telusuri Jalur Hop & Latensi',
+                desc: 'Identifikasi titik router tempat paket mengalami hambatan atau packet loss.',
+                commands: ['traceroute example.com', 'mtr -rw -c 10 example.com']
+            },
+            {
+                step: 6,
+                title: 'Periksa Port & Layanan Aktif',
+                desc: 'Cek soket lokal yang listening atau pindai port layanan pada perangkat tujuan.',
+                commands: ['ss -tuln', 'nmap ALAMAT_IP_PERANGKAT']
+            },
+            {
+                step: 7,
+                title: 'Analisis Paket Data Secara Mendalam',
+                desc: 'Tangkap dan inspeksi lalu lintas paket secara real-time untuk menemukan akar masalah.',
+                commands: ['wireshark', 'sudo tcpdump -i any -c 20']
+            }
+        ];
+
+        // Utility: Copy to Clipboard
+        let toastTimeout;
+        function copyText(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(text);
+            } catch (err) {
+                console.error('Gagal menyalin teks:', err);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function showToast(cmd) {
+            const toast = document.getElementById('copy-toast');
+            const preview = document.getElementById('toast-command-preview');
+            preview.textContent = cmd.replace(/\n/g, ' ; ');
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 2500);
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;")
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;")
+                      .replace(/"/g, "&quot;")
+                      .replace(/'/g, "&#039;");
+        }
+
+        // Render Bagian 2: Basic Commands Table
+        function renderBasicCommands() {
+            const tbody = document.getElementById('basic-commands-tbody');
+            tbody.innerHTML = basicCommands.map(item => `
+                <tr class="hover:bg-slate-800/40 transition-colors group">
+                    <td class="py-4 px-6 font-mono text-xs sm:text-sm text-cyan-400 font-medium whitespace-nowrap">
+                        <span class="text-slate-600 select-none mr-1.5">$</span>${escapeHtml(item.cmd)}
+                    </td>
+                    <td class="py-4 px-6 text-slate-300 text-xs sm:text-sm leading-relaxed">
+                        ${escapeHtml(item.desc)}
+                    </td>
+                    <td class="py-4 px-6 text-right">
+                        <button 
+                            onclick="copyText('${escapeHtml(item.cmd)}')" 
+                            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-cyan-500/15 text-slate-300 hover:text-cyan-300 border border-slate-800 hover:border-cyan-500/40 font-mono text-xs transition-all"
+                            title="Salin perintah"
+                        >
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            <span>Salin</span>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Bagian 3: Toolkit Cards
+        function renderToolkit(filterCategory = 'all', searchQuery = '') {
+            const grid = document.getElementById('toolkit-grid');
+            const emptyState = document.getElementById('toolkit-empty');
+            const query = searchQuery.toLowerCase().trim();
+
+            const filtered = toolkitData.filter(tool => {
+                const matchCategory = filterCategory === 'all' || tool.category === filterCategory;
+                const matchSearch = !query || 
+                    tool.name.toLowerCase().includes(query) ||
+                    tool.desc.toLowerCase().includes(query) ||
+                    tool.badge.toLowerCase().includes(query) ||
+                    tool.commands.some(c => c.code.toLowerCase().includes(query) || c.label.toLowerCase().includes(query));
+                return matchCategory && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                lucide.createIcons();
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(tool => {
+                const stepsHtml = tool.steps ? `
+                    <div class="mb-4 p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/90">
+                        <p class="text-xs font-semibold text-slate-300 mb-2 flex items-center gap-1.5">
+                            <i data-lucide="list-ordered" class="w-3.5 h-3.5 text-cyan-400"></i>
+                            Langkah Penggunaan:
+                        </p>
+                        <ol class="list-decimal list-inside space-y-1 text-xs text-slate-400 leading-relaxed">
+                            ${tool.steps.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
+                        </ol>
+                    </div>
+                ` : '';
+
+                const commandsHtml = tool.commands.map(c => {
+                    const encodedCmd = encodeURIComponent(c.code);
+                    return `
+                        <div class="rounded-xl bg-[#070C17] border border-slate-800/90 overflow-hidden">
+                            <div class="flex items-center justify-between px-3.5 py-1.5 bg-slate-900/90 border-b border-slate-800/80">
+                                <span class="text-[11px] font-medium text-slate-400">${escapeHtml(c.label)}</span>
+                                <button 
+                                    onclick="copyText(decodeURIComponent('${encodedCmd}'))" 
+                                    class="inline-flex items-center gap-1 text-[11px] font-mono text-cyan-400 hover:text-emerald-400 transition-colors py-0.5 px-1.5 rounded hover:bg-slate-800"
+                                    title="Salin blok perintah"
+                                >
+                                    <i data-lucide="copy" class="w-3 h-3"></i>
+                                    <span>Copy</span>
+                                </button>
+                            </div>
+                            <pre class="p-3.5 font-mono text-xs text-emerald-400 overflow-x-auto leading-relaxed"><code>${escapeHtml(c.code)}</code></pre>
+                        </div>
+                    `;
+                }).join('');
+
+                const noteHtml = tool.note ? `
+                    <div class="mt-4 flex items-start gap-2 text-xs text-amber-300/90 bg-amber-500/5 border border-amber-500/20 rounded-xl p-3">
+                        <i data-lucide="info" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                        <span class="leading-relaxed">${escapeHtml(tool.note)}</span>
+                    </div>
+                ` : '';
+
+                return `
+                    <article class="rounded-2xl bg-slate-900/65 border border-slate-800 hover:border-cyan-500/40 p-6 flex flex-col justify-between transition-all shadow-lg">
+                        <div>
+                            <div class="flex items-start justify-between gap-4 mb-4">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-500/15 to-emerald-500/15 border border-cyan-500/25 flex items-center justify-center text-cyan-400 shrink-0">
+                                        <i data-lucide="${tool.icon}" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-xs font-mono font-bold text-emerald-400">#${String(tool.id).padStart(2, '0')}</span>
+                                            <h3 class="text-lg font-bold text-white">${escapeHtml(tool.name)}</h3>
+                                        </div>
+                                        <span class="inline-block mt-0.5 text-[11px] font-mono text-slate-400">${escapeHtml(tool.badge)}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                                ${escapeHtml(tool.desc)}
+                            </p>
+
+                            ${stepsHtml}
+
+                            <div class="space-y-2.5">
+                                ${commandsHtml}
+                            </div>
+                        </div>
+
+                        ${noteHtml}
+                    </article>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        // Render Bagian 5: Troubleshooting Stepper
+        function renderTroubleshooting() {
+            const container = document.getElementById('troubleshooting-stepper');
+            container.innerHTML = troubleshootingSteps.map(item => {
+                const cmdsHtml = item.commands.map(cmd => `
+                    <div class="inline-flex items-center justify-between gap-3 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 font-mono text-xs">
+                        <code class="text-emerald-400">${escapeHtml(cmd)}</code>
+                        <button onclick="copyText('${escapeHtml(cmd)}')" class="text-slate-400 hover:text-cyan-400 transition-colors" title="Salin perintah">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                `).join('');
+
+                return `
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-cyan-500 bg-slate-950 text-cyan-400 font-mono font-bold text-sm shadow-lg shadow-cyan-500/20 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                            ${item.step}
+                        </div>
+
+                        <div class="w-[calc(100%-3.5rem)] md:w-[calc(50%-2.5rem)] p-5 rounded-2xl bg-slate-900/75 border border-slate-800 hover:border-cyan-500/40 transition-all shadow-md">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-xs font-mono text-cyan-400 uppercase tracking-wider">Langkah 0${item.step}</span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold text-white mb-1.5">${escapeHtml(item.title)}</h3>
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3.5">${escapeHtml(item.desc)}</p>
+                            <div class="flex flex-wrap gap-2">
+                                ${cmdsHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Initialize Page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBasicCommands();
+            renderToolkit();
+            renderTroubleshooting();
+            lucide.createIcons();
+
+            // Mobile Menu Toggle
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const iconOpen = document.getElementById('menu-icon-open');
+            const iconClose = document.getElementById('menu-icon-close');
+
+            mobileBtn.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                if (isHidden) {
+                    mobileMenu.classList.remove('hidden');
+                    iconOpen.classList.add('hidden');
+                    iconClose.classList.remove('hidden');
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    iconOpen.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                }
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    iconOpen.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                });
+            });
+
+            // Toolkit Search & Category Filter Listeners
+            let currentCategory = 'all';
+            let currentSearch = '';
+
+            const searchInput = document.getElementById('toolkit-search');
+            searchInput.addEventListener('input', (e) => {
+                currentSearch = e.target.value;
+                renderToolkit(currentCategory, currentSearch);
+            });
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('bg-cyan-500', 'text-slate-950');
+                        b.classList.add('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800');
+                    });
+                    btn.classList.remove('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800');
+                    btn.classList.add('bg-cyan-500', 'text-slate-950');
+
+                    currentCategory = btn.getAttribute('data-category');
+                    renderToolkit(currentCategory, currentSearch);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
