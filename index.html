@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Netra OS - Network Edition &amp; Documentation Manual</title>
+    <link href="img/boot.png" rel="icon" type="image/png" />
     <!-- Tailwind CSS v3 CDN with plugins -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <!-- Fonts: Inter & JetBrains Mono -->
@@ -91,30 +92,13 @@
         <!-- Brand Logo -->
         <a class="flex items-center space-x-3.5 group" href="#">
           <div
-            class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-cyan/20 to-teal-900/40 border border-brand-cyan/40 flex items-center justify-center text-brand-cyan group-hover:scale-105 transition-all shadow-[0_0_15px_rgba(5,213,179,0.3)]"
+            class="w-10 h-10 rounded-xl overflow-hidden border border-brand-cyan/40 bg-brand-surface flex items-center justify-center group-hover:scale-105 transition-all shadow-[0_0_15px_rgba(5,213,179,0.3)]"
           >
-            <svg
-              class="w-6 h-6 animate-pulse"
-              fill="none"
-              stroke="currentColor"
-              viewbox="0 0 24 24"
-            >
-              <circle cx="12" cy="12" r="9" stroke-width="1.5"></circle>
-              <circle
-                cx="12"
-                cy="12"
-                r="5"
-                stroke-dasharray="2 2"
-                stroke-width="1.5"
-              ></circle>
-              <circle cx="12" cy="12" fill="currentColor" r="2"></circle>
-              <path
-                d="M12 3v3m0 12v3M3 12h3m12 0h3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-              ></path>
-            </svg>
+            <img
+              alt="Logo Netra OS"
+              class="w-8 h-8 object-contain"
+              src="img/boot.png"
+            />
           </div>
           <div class="flex items-center space-x-1.5 font-bold tracking-tight">
             <span class="text-xl text-white tracking-wide">Netra</span>
@@ -129,19 +113,19 @@
           class="hidden lg:flex items-center space-x-6 text-sm font-medium text-slate-300"
         >
           <a class="text-brand-cyan hover:text-white transition" href="#beranda"
-            >Beranda</a
+            >Home</a
           >
           <a class="hover:text-brand-cyan transition" href="#memulai"
-            >Memulai</a
+            >Mulai</a
           >
           <a class="hover:text-brand-cyan transition" href="#perintah-dasar"
-            >Perintah Dasar</a
+            >Command</a
           >
           <a class="hover:text-brand-cyan transition" href="#toolkit"
-            >Toolkit Jaringan</a
+            >Tools</a
           >
           <a class="hover:text-brand-cyan transition" href="#fitur"
-            >Fitur Unggulan</a
+            >Fitur</a
           >
           <a class="hover:text-brand-cyan transition" href="#troubleshooting"
             >Troubleshooting</a
@@ -1262,7 +1246,7 @@
             <div class="border-l-2 border-amber-400 pl-3 mb-6">
               <span
                 class="text-amber-400 font-mono text-xs uppercase font-semibold"
-                >[06] Etika Penggunaan &amp; Keamanan</span
+                >[06] Etika &amp; Keamanan</span
               >
               <h3 class="text-2xl font-bold text-white mt-1">
                 Catatan Keamanan &amp; Tanggung Jawab
@@ -1311,90 +1295,78 @@
             <div
               class="w-20 h-20 mx-auto rounded-full bg-slate-800 border-2 border-brand-cyan/50 flex items-center justify-center text-brand-cyan font-bold text-xl mb-4 font-mono shadow-[0_0_15px_rgba(5,213,179,0.2)]"
             >
-              GA
+              GR
             </div>
-            <h4 class="text-white font-bold text-base">Galang Ananta</h4>
-            <span class="text-xs text-brand-cyan font-mono block mt-1"
-              >Lead Systems &amp; Kernel</span
-            >
-            <p class="text-xs text-slate-400 mt-2">
-              Penyusun packaging Ubuntu 24.04 base, optimasi eBPF capture, dan
-              pipeline CI/CD distro.
-            </p>
+            <h4 class="text-white font-bold text-base">
+              Galang Radit Perdana
+            </h4>
+            <!--
             <div class="mt-4 flex justify-center space-x-3 text-slate-400">
               <span class="text-xs font-mono bg-slate-900 px-2 py-1 rounded"
                 >@galang-dev</span
               >
             </div>
+            -->
           </div>
           <!-- Team Member 2 -->
           <div
             class="bg-brand-surface border border-brand-cardBorder rounded-xl p-5 text-center hover:border-brand-cyan/40 transition"
           >
             <div
-              class="w-20 h-20 mx-auto rounded-full bg-slate-800 border-2 border-teal-500/50 flex items-center justify-center text-teal-300 font-bold text-xl mb-4 font-mono shadow-[0_0_15px_rgba(20,184,166,0.2)]"
+              class="w-20 h-20 mx-auto rounded-full bg-slate-800 border-2 border-brand-cyan/50 flex items-center justify-center text-brand-cyan font-bold text-xl mb-4 font-mono shadow-[0_0_15px_rgba(5,213,179,0.2)]"
             >
-              RD
+              MS
             </div>
-            <h4 class="text-white font-bold text-base">Rian Darmawan</h4>
-            <span class="text-xs text-teal-400 font-mono block mt-1"
-              >Network Security Lead</span
-            >
-            <p class="text-xs text-slate-400 mt-2">
-              Integrasi toolkit pcap, konfigurasi default sandbox, dan kurator
-              lab pengetesan.
-            </p>
+            <h4 class="text-white font-bold text-base">
+              Moh. Sabiel Al-Faizin
+            </h4>
+            <!--
             <div class="mt-4 flex justify-center space-x-3 text-slate-400">
               <span class="text-xs font-mono bg-slate-900 px-2 py-1 rounded"
                 >@riand-sec</span
               >
             </div>
+            -->
           </div>
           <!-- Team Member 3 -->
           <div
             class="bg-brand-surface border border-brand-cardBorder rounded-xl p-5 text-center hover:border-brand-cyan/40 transition"
           >
             <div
-              class="w-20 h-20 mx-auto rounded-full bg-slate-800 border-2 border-sky-500/50 flex items-center justify-center text-sky-400 font-bold text-xl mb-4 font-mono shadow-[0_0_15px_rgba(56,189,248,0.2)]"
+              class="w-20 h-20 mx-auto rounded-full bg-slate-800 border-2 border-brand-cyan/50 flex items-center justify-center text-brand-cyan font-bold text-xl mb-4 font-mono shadow-[0_0_15px_rgba(5,213,179,0.2)]"
             >
-              SP
+              NZ
             </div>
-            <h4 class="text-white font-bold text-base">Siti Pratiwi</h4>
-            <span class="text-xs text-sky-400 font-mono block mt-1"
-              >GNOME UX &amp; Shell Integrator</span
-            >
-            <p class="text-xs text-slate-400 mt-2">
-              Desain kustom shell extensions, panel pantau antarmuka, dan dark
-              cyber palette.
-            </p>
+            <h4 class="text-white font-bold text-base">
+              Nabhan Zulfikar Ahsan Al-Rasyid
+            </h4>
+            <!--
             <div class="mt-4 flex justify-center space-x-3 text-slate-400">
               <span class="text-xs font-mono bg-slate-900 px-2 py-1 rounded"
                 >@sitipratiwi</span
               >
             </div>
+            -->
           </div>
           <!-- Team Member 4 -->
           <div
             class="bg-brand-surface border border-brand-cardBorder rounded-xl p-5 text-center hover:border-brand-cyan/40 transition"
           >
             <div
-              class="w-20 h-20 mx-auto rounded-full bg-slate-800 border-2 border-emerald-500/50 flex items-center justify-center text-emerald-400 font-bold text-xl mb-4 font-mono shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+              class="w-20 h-20 mx-auto rounded-full bg-slate-800 border-2 border-brand-cyan/50 flex items-center justify-center text-brand-cyan font-bold text-xl mb-4 font-mono shadow-[0_0_15px_rgba(5,213,179,0.2)]"
             >
-              FM
+              AK
             </div>
-            <h4 class="text-white font-bold text-base">Fajar Maulana</h4>
-            <span class="text-xs text-emerald-400 font-mono block mt-1"
-              >Doc &amp; Community Maintainer</span
-            >
-            <p class="text-xs text-slate-400 mt-2">
-              Dokumentasi panduan interaktif, translasi manual bahasa, dan
-              moderasi forum isu.
-            </p>
+            <h4 class="text-white font-bold text-base">
+              Athaufa Kindi Wiratama
+            </h4>
+            <!--
             <div class="mt-4 flex justify-center space-x-3 text-slate-400">
               <span class="text-xs font-mono bg-slate-900 px-2 py-1 rounded"
                 >@fajar-docs</span
               >
             </div>
+            -->
           </div>
         </div>
       </section>
@@ -1427,13 +1399,17 @@
                   class="p-3 rounded-lg bg-slate-900/80 border border-slate-800 flex items-center justify-between"
                 >
                   <span class="text-slate-400">Bug &amp; Security:</span>
-                  <span class="text-brand-cyan">bug-report@netra-os.org</span>
+                  <span class="text-brand-cyan text-right break-all"
+                    >sabillalu999@students.unnes.ac.id</span
+                  >
                 </div>
                 <div
                   class="p-3 rounded-lg bg-slate-900/80 border border-slate-800 flex items-center justify-between"
                 >
                   <span class="text-slate-400">Bantuan Umum:</span>
-                  <span class="text-brand-cyan">support@netra-os.org</span>
+                  <span class="text-brand-cyan text-right break-all"
+                    >sabillalu999@students.unnes.ac.id</span
+                  >
                 </div>
               </div>
               <!-- Community Links -->
@@ -1468,17 +1444,7 @@
               <h4 class="text-lg font-bold text-white mb-4">
                 Kirim Masukan &amp; Tiket Laporan
               </h4>
-              <form
-                action="#"
-                class="space-y-4"
-                method="POST"
-                onsubmit="
-                  event.preventDefault();
-                  alert(
-                    'Terima kasih! Tiket laporan Anda telah tercatat pada dev-tracker Netra OS.',
-                  );
-                "
-              >
+              <form class="space-y-4" id="ticket-form">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label
@@ -1578,9 +1544,13 @@
           <!-- Brand & Description -->
           <div class="flex items-center space-x-3">
             <div
-              class="w-8 h-8 rounded-lg bg-brand-cyan/20 border border-brand-cyan/40 flex items-center justify-center text-brand-cyan font-mono font-bold text-sm"
+              class="w-8 h-8 rounded-lg overflow-hidden bg-brand-surface border border-brand-cyan/40 flex items-center justify-center"
             >
-              N
+              <img
+                alt="Logo Netra OS"
+                class="w-6 h-6 object-contain"
+                src="img/boot.png"
+              />
             </div>
             <div>
               <div class="font-bold text-white text-base">Netra OS</div>
@@ -1626,5 +1596,47 @@
       </div>
     </footer>
     <!-- END: MainFooter -->
+    <script>
+      document
+        .getElementById("ticket-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const name = document.getElementById("name").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const categorySelect = document.getElementById("category");
+          const category =
+            categorySelect.options[categorySelect.selectedIndex].text;
+          const message = document.getElementById("message").value.trim();
+
+          const subject = "[Netra OS] " + category + " - " + name;
+          const body =
+            "Nama / Handle: " +
+            name +
+            "\n" +
+            "Email: " +
+            email +
+            "\n" +
+            "Kategori: " +
+            category +
+            "\n\n" +
+            "Deskripsi:\n" +
+            message;
+
+          const gmailUrl =
+            "https://mail.google.com/mail/?view=cm&fs=1" +
+            "&to=" +
+            encodeURIComponent("sabillalu999@students.unnes.ac.id") +
+            "&su=" +
+            encodeURIComponent(subject) +
+            "&body=" +
+            encodeURIComponent(body);
+
+          const gmailWindow = window.open(gmailUrl, "_blank");
+          if (!gmailWindow) {
+            window.location.href = gmailUrl;
+          }
+        });
+    </script>
   </body>
 </html>
